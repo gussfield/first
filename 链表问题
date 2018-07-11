@@ -1,0 +1,28 @@
+1. 怎么判断1个单向的链表是否存在环？
+
+思路，单向链表有环的话，意味着，遍历链表是死循环，永远不会结束。
+但是，如果是使用2个指针，采用不同的速率进行链表的遍历，在链表存在环的情况肯定会相遇，
+如果这个2指针在遍历链表结束前没有相遇，则说明链表不存在环。
+
+C++代码如下:
+
+bool LinkHasCircle(List *head) {
+    if (NULL == head || NULL == head->next) {
+        return false;
+    }
+    
+    List *slower = head;
+    List *faster = head->next;
+    while (NULL != faster && NULL != faster->next) {
+        if (slower == faster) {
+            return true;
+        }
+        
+        slower = slower->next;
+        faster = faster->next->next;
+    }
+    
+    return false;
+}
+
+
